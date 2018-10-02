@@ -3,6 +3,7 @@
 *{
 	margin: 0px;
 	padding: 0px; 
+	scroll-behavior: smooth;
 }
 
 a{
@@ -28,7 +29,7 @@ header li{
 }
 .nav-item a h3{
 	display: inline-block;
-	border: 1px solid;
+	visibility: hidden;
 }
 .material-icons{
 	font-size: 30px;
@@ -55,7 +56,6 @@ li {
 	}
 	.nav-item a h3{
 		display: block;
-		border: 1px solid;
 		font-size: 1.5em;
 	}
 	#sjkre-floater{
@@ -65,7 +65,7 @@ li {
 
 @media all and (min-width: 993px){
 	header{
-		height: 700px;
+		height: 600px;
 	}
 	ul{
 		display: flex;
@@ -80,12 +80,9 @@ li {
 	}
 	.nav-item a h3{
 		display: block;
-		visibility: visible;
-		border: 1px solid;
 		font-size: 2em;
 	}
 	#sjkre-floater{
 		padding: 4% 6%;
 	}
-
 }
