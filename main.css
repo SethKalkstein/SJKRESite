@@ -1,0 +1,88 @@
+/*start with mobile layout*/
+
+*{
+	margin: 0px;
+	padding: 0px; 
+	scroll-behavior: smooth;
+}
+
+a{
+	text-decoration: none;
+}
+
+header{
+	background-image: url(images/cityHallLove.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+header li{
+	padding: 3px;
+	text-align: center;
+	font-color: white;
+}
+
+.nav-item a {
+	color: white;
+	text-shadow: .07em .07em black;
+
+}
+.nav-item a h3{
+	display: inline-block;
+	visibility: hidden;
+}
+.material-icons{
+	font-size: 30px;
+}
+
+li {
+	list-style: none;
+}
+
+@media all and (min-width: 481px) and (max-width: 992px){
+	header{
+		height: 300px;
+	}
+	ul{
+		display: flex;
+  		justify-content: center;
+	}
+	ul li {
+		padding: 2%;
+		font-size: 1.25em;
+	}
+	.nav-item a{
+			text-shadow: .12em .12em black;
+	}
+	.nav-item a h3{
+		display: block;
+		font-size: 1.5em;
+	}
+	#sjkre-floater{
+		padding: 4% 6%;
+	}
+}
+
+@media all and (min-width: 993px){
+	header{
+		height: 600px;
+	}
+	ul{
+		display: flex;
+  		justify-content: center;
+	}
+	ul li {
+		padding: 2%;
+		font-size: 1.75em;
+	}
+	.nav-item a{
+			text-shadow: .2em .2em .2em black;
+	}
+	.nav-item a h3{
+		display: block;
+		font-size: 2em;
+	}
+	#sjkre-floater{
+		padding: 4% 6%;
+	}
+}
