@@ -61,27 +61,27 @@ header li{
 	display: inline;
 }
 
-#head-shot{
+.text-section img{
 	width: 10%;
 	border-radius: 5%;
 	float: left;
 	margin: 1%; 
 }
 
-#about {
+.text-section {
 	padding: 3%;
 }
-#about h1{
+.text-section h1{
 	text-align: center;
 	font-size: 2em;
 }
 
-#about p {
+.text-section p {
 	padding: 1%;
 	text-align: justify;
 }
 
-#about p:last-child {
+.text-section p:last-child {
 	border-bottom: 1px dashed black;
 	padding: 1% 1% 2% 1%;
 }
