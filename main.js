@@ -68,5 +68,20 @@ function moveTitle(movingTitle = populateTitleMover()){ //function positions the
 
 window.addEventListener("load", start());
 
+var scrollPlace = $("#about").offset();
+$(window).scroll(function(){
+	if($(document).scrollTop() > scrollPlace.top-(scrollPlace.top*.1)){
+		$("nav").addClass("jsHeaderSticky");
+		$(".nav-item a").addClass("jsStickyNavItem");
+		$("a h3").addClass("jsStickyH3");
+	}
+	else{
+		$("nav").removeClass("jsHeaderSticky");	
+		$(".nav-item a").removeClass("jsStickyNavItem");
+		$("a h3").removeClass("jsStickyH3");
+	}
+		console.log(scrollPlace.top);
+});
+
 
 
