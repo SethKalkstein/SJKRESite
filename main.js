@@ -83,5 +83,16 @@ $(window).scroll(function(){
 		console.log(scrollPlace.top);
 });
 
+// photo slider below for featured listings
 
+class Listing{
+	constructor(url,address,picUrl){
+		this.url=url; //link to the mls listing
+		this.address=address;  //address of the house
+		this.picUrl=picUrl;   //url of the houses photo
+	}
+}
 
+const urls = ["http://matrixweb.trendmls.com/matrix/shared/ZPQstKHXsJ/2019N8thSt", "http://matrixweb.trendmls.com/matrix/shared/g5DH3PQZsJ/418S21stSt","http://matrixweb.trendmls.com/matrix/shared/Xvb3L3Y1sJ/323FortWashingtonAve","http://matrixweb.trendmls.com/matrix/shared/GRXQhM22sJ/7804WilliamsAve","http://matrixweb.trendmls.com/matrix/shared/vkJ1xq63sJ/6175RidgeAve"];
+const pics = ["http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=312675181&TableID=9&Type=1&Number=0&Size=2&exk=545f33de9f9292dfd8a9efd4f8fa8d12", "http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=309457231&TableID=9&Type=1&Number=0&Size=2&exk=c944f26d9972889bb3d94db573099824","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=284178077&TableID=9&Type=1&Number=0&Size=2&exk=1d8ece8d42c9d115a034985d4aa542c2","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=310503907&TableID=9&Type=1&Number=0&Size=2&exk=746ac81e177450d888fe4beb1fef4b0b","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=292826802&TableID=9&Type=1&Number=0&Size=2&exk=77efbd2c946b55a67b82ba33b6e48acf"];
+const adds = ["2019 N 8th St", "418 S 21st St","323 Fort 323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"];
