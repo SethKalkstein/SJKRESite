@@ -85,14 +85,68 @@ $(window).scroll(function(){
 
 // photo slider below for featured listings
 
-class Listing{
+class Listings{
 	constructor(url,address,picUrl){
-		this.url=url; //link to the mls listing
-		this.address=address;  //address of the house
-		this.picUrl=picUrl;   //url of the houses photo
+		this.url = url; //array of links to the mls listings
+		this.address = address;  //array of address of the houses
+		this.picUrl = picUrl;   //array of url of the houses photos
+		this.counter = 0; //will keep track of which one is being processed
+	}
+	prev(){
+		if(this.counter == this.address.length-1){ //it's on the last element of the array
+			this.counter = 0; 
+		}
+		else{
+			this.counter ++;
+		}
+		this.load();
+	}
+
+	next(){
+		if(this.counter == 0){
+			this.counter = this.address.length-1;
+		}
+		else{
+			this.counter --;
+		}
+		this.load();
+	}
+
+	load(){
+		if(this.counter==this.address.length-1){ //set the pictures and double check that the counter is not at the end of the array and compensate by returning the first (or first and second) element if it is
+			this.sliderPositioner(this.counter, 0, 1) //passes the positions of the array as arguments adjusted for being at the end of the array
+		}
+		else if(this.counter==this.address.length-2){ //same as above but in second to last position
+			this.sliderPositioner(this.counter, this.counter+1, 0 )	
+		}
+		else{ //otherwise we're not at the end of the array, all is well, carry on
+			this.sliderPositioner(this.counter, this.counter+1, this.counter+2 )
+		}
+	}
+
+	sliderPositioner(position1, position2, position3)
+	{
+			$("#listing-item1 img").attr("src",this.picUrl[position1]); //sets the actual positions in the html elements
+			$("#listing-item2 img").attr("src",this.picUrl[position2]);
+			$("#listing-item3 img").attr("src",this.picUrl[position3]);
+			$("#listing-item1 h6").html(this.address[position1]);
+			$("#listing-item2 h6").html(this.address[position2]);
+			$("#listing-item3 h6").html(this.address[position3]);
 	}
 }
 
 const urls = ["http://matrixweb.trendmls.com/matrix/shared/ZPQstKHXsJ/2019N8thSt", "http://matrixweb.trendmls.com/matrix/shared/g5DH3PQZsJ/418S21stSt","http://matrixweb.trendmls.com/matrix/shared/Xvb3L3Y1sJ/323FortWashingtonAve","http://matrixweb.trendmls.com/matrix/shared/GRXQhM22sJ/7804WilliamsAve","http://matrixweb.trendmls.com/matrix/shared/vkJ1xq63sJ/6175RidgeAve"];
-const pics = ["http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=312675181&TableID=9&Type=1&Number=0&Size=2&exk=545f33de9f9292dfd8a9efd4f8fa8d12", "http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=309457231&TableID=9&Type=1&Number=0&Size=2&exk=c944f26d9972889bb3d94db573099824","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=284178077&TableID=9&Type=1&Number=0&Size=2&exk=1d8ece8d42c9d115a034985d4aa542c2","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=310503907&TableID=9&Type=1&Number=0&Size=2&exk=746ac81e177450d888fe4beb1fef4b0b","http://matrixmedia.trendmls.com/mediaserver/GetMedia.ashx?Key=292826802&TableID=9&Type=1&Number=0&Size=2&exk=77efbd2c946b55a67b82ba33b6e48acf"];
-const adds = ["2019 N 8th St", "418 S 21st St","323 Fort 323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"];
+const pics = ["./images/2019N8th.jpg","images/418S21st.jpg","images/323FortWash.jpg","images/7804Williams.jpg","images/6175Ridge.jpg"];
+const adds = ["2019 N 8th St", "418 S 21st St","323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"];
+
+var currentListings = new Listings(urls,adds,pics); //creates an instance of the listing class
+
+currentListings.load(); //loads listings on opening the page
+
+$("#prev").click(function(){currentListings.prev()}); //fires the previous listing scroll 
+$("#next").click(function(){currentListings.next()}); //fires the next listing scroll 
+// $("#listing-item1").hover(enlarge);
+
+// function enlarge(){
+// 	$("#listing-item1 img").css("height","250px");
+// }
