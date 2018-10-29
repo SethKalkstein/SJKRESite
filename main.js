@@ -86,7 +86,7 @@ $(window).scroll(function(){
 // photo slider below for featured listings
 
 class Listings{
-	constructor(url,address,picUrl){
+	constructor(url, address, picUrl){
 		this.url = url; //array of links to the mls listings
 		this.address = address;  //array of address of the houses
 		this.picUrl = picUrl;   //array of url of the houses photos
@@ -94,12 +94,12 @@ class Listings{
 	}
 	prev(){
 		if(this.counter == this.address.length-1){ //it's on the last element of the array
-			this.counter = 0; 
+			this.counter = 0;  
 		}
 		else{
-			this.counter ++;
+			this.counter ++; //since we want the zero element to go to the left adding to the counter does this... counterintuitive, but if you look at the way items are displayed in sliderPositioner function it makes sense
 		}
-		this.load();
+		this.load(); //load them up!
 	}
 
 	next(){
@@ -107,7 +107,7 @@ class Listings{
 			this.counter = this.address.length-1;
 		}
 		else{
-			this.counter --;
+			this.counter --; //in order to have the zero element move to the second position from the first, the new first position would have to be occupied by the last item of the array which is accomplished by decrimenting the counter
 		}
 		this.load();
 	}
@@ -126,12 +126,15 @@ class Listings{
 
 	sliderPositioner(position1, position2, position3)
 	{
-			$("#listing-item1 img").attr("src",this.picUrl[position1]); //sets the actual positions in the html elements
-			$("#listing-item2 img").attr("src",this.picUrl[position2]);
-			$("#listing-item3 img").attr("src",this.picUrl[position3]);
-			$("#listing-item1 h6").html(this.address[position1]);
-			$("#listing-item2 h6").html(this.address[position2]);
-			$("#listing-item3 h6").html(this.address[position3]);
+			$("#listing-image1 img").attr("src",this.picUrl[position1]); //sets the actual positions in the html elements
+			$("#listing-image2 img").attr("src",this.picUrl[position2]);
+			$("#listing-image3 img").attr("src",this.picUrl[position3]);
+			$("#listing-heading1 h6").html(this.address[position1]);
+			$("#listing-heading2 h6").html(this.address[position2]);
+			$("#listing-heading3 h6").html(this.address[position3]);
+			$(".listing-link1").attr("href",this.url[position1]);
+			$(".listing-link2").attr("href",this.url[position2]);
+			$(".listing-link3").attr("href",this.url[position3]);
 	}
 }
 
@@ -145,8 +148,8 @@ currentListings.load(); //loads listings on opening the page
 
 $("#prev").click(function(){currentListings.prev()}); //fires the previous listing scroll 
 $("#next").click(function(){currentListings.next()}); //fires the next listing scroll 
-// $("#listing-item1").hover(enlarge);
+// $("#listing-image1").hover(enlarge);
 
 // function enlarge(){
-// 	$("#listing-item1 img").css("height","250px");
+// 	$("#listing-image1 img").css("height","250px");
 // }
