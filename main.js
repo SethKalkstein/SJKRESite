@@ -1,4 +1,12 @@
 
+var count= 0; //counts the number of times that the interval has been executed
+var iter = 0; //iter tracks the iteration of the array being accessed
+var setTime = 0; //for exiting animation interval
+var headerBounds = document.getElementsByTagName("header")[0].getBoundingClientRect(); //gets the dimensions of the header tag
+const urls = ["http://matrixweb.trendmls.com/matrix/shared/ZPQstKHXsJ/2019N8thSt", "http://matrixweb.trendmls.com/matrix/shared/g5DH3PQZsJ/418S21stSt","http://matrixweb.trendmls.com/matrix/shared/Xvb3L3Y1sJ/323FortWashingtonAve","http://matrixweb.trendmls.com/matrix/shared/GRXQhM22sJ/7804WilliamsAve","http://matrixweb.trendmls.com/matrix/shared/vkJ1xq63sJ/6175RidgeAve"]; //urls of real estate listings
+const pics = ["./images/2019N8th.jpg","images/418S21st.jpg","images/323FortWash.jpg","images/7804Williams.jpg","images/6175Ridge.jpg"]; //pictures of the listings
+const adds = ["2019 N 8th St", "418 S 21st St","323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"]; //addresses of the listings
+var scrollPlace = $("#about").offset(); //checks to see how far down the scroll bar is for sticky header functionality
 
 function populateTitleMover(){
 	var titleFloat = []; //will hold the the title objects
@@ -17,8 +25,6 @@ function populateTitleMover(){
 		}
 	} 
 
-	var headerBounds = document.getElementsByTagName("header")[0].getBoundingClientRect(); //gets the dimensions of the header tag
-
 	for(let i=0;i<3;i++){
 		var elem = document.getElementsByClassName("titleFloat")[i]; //grab title elements
 		elem.style.display="inline-block"; //sets titleFloat class 
@@ -32,14 +38,11 @@ function populateTitleMover(){
 		return titleFloat; //returns the array of objects
 }
 
-var count= 0; //counts the number of times that the interval has been executed
-var iter = 0; //iter tracks the iteration of the array being accessed
-var setTime = 0; //for exiting animation interval
-
 
 function start(){
 	setTime = setInterval(moveTitle, 10); //calls the animation incriments
 }
+
 function moveTitle(movingTitle = populateTitleMover()){ //function positions the animation
 	if (count < 100) { //I initially tried doing everything here in a regular for loop but it wasn't working right with setInterval so rigged it like this instead, setting the iteration through the interval count
 		iter = 0;
@@ -49,7 +52,7 @@ function moveTitle(movingTitle = populateTitleMover()){ //function positions the
 	else {
 		iter = 2;
 	}
-	movingTitle[iter].element.style.visibility="visible"; //initiall set to hidden in css
+	movingTitle[iter].element.style.visibility="visible"; //initially set to hidden in css
 	movingTitle[iter].element.style.fontSize=(((count-(100*iter)+1)*.01)*1.9)+"em"; //makes the font "grow" during animation, uses count as a percent (in decimal form) of the desired outcome increasing by one percent each count
 	movingTitle[iter].element.style.left = (((count-(100*iter)+1)*.01)*movingTitle[iter].targetLeft())+"px"; //moves it to the right until centered. note: second and third interation h3[1] and h3[2] are corrected by multiplying the iter by 100 and subtracting from count (and adding 1 because 1 to 100 needed instead of 0 to 99) 
 	movingTitle[iter].element.style.top = (((count-(100*iter)+1)*.01)*movingTitle[iter].targetTop(iter))+"px"; //move it down the page until spaced evenly, uses same math as above
@@ -66,19 +69,27 @@ function moveTitle(movingTitle = populateTitleMover()){ //function positions the
 	count++;
 }
 
-window.addEventListener("load", start());
+if ( $( window ).width() >= 464 ) { //wont call the animation if the viewport is too small
+	window.addEventListener("load", start());
+}
 
-var scrollPlace = $("#about").offset();
 $(window).scroll(function(){
-	if($(document).scrollTop() > scrollPlace.top-(scrollPlace.top*.1)){
+	if($(document).scrollTop() > scrollPlace.top-(scrollPlace.top*.1) && $( window ).width() >= 464 ){
 		$("nav").addClass("jsHeaderSticky");
+		$(".nav-item a").removeClass("nav-link");
 		$(".nav-item a").addClass("jsStickyNavItem");
-		$("a h3").addClass("jsStickyH3");
+		$("#name-link h3").removeClass("titleFloat");
+		$("#name-link h3").addClass("jsStickyH3");
+		$("nav ul").removeClass("navigation-list");
+		$("nav ul").addClass("js-nav-list");
+		$("ul li").removeClass("sjkre-floater");
 	}
 	else{
 		$("nav").removeClass("jsHeaderSticky");	
 		$(".nav-item a").removeClass("jsStickyNavItem");
-		$("a h3").removeClass("jsStickyH3");
+		$(".nav-item a").addClass("nav-link");
+		$("#name-link h3").removeClass("jsStickyH3");
+		$("#name-link h3").addClass("titleFloat");
 	}
 		console.log(scrollPlace.top);
 });
@@ -138,9 +149,7 @@ class Listings{
 	}
 }
 
-const urls = ["http://matrixweb.trendmls.com/matrix/shared/ZPQstKHXsJ/2019N8thSt", "http://matrixweb.trendmls.com/matrix/shared/g5DH3PQZsJ/418S21stSt","http://matrixweb.trendmls.com/matrix/shared/Xvb3L3Y1sJ/323FortWashingtonAve","http://matrixweb.trendmls.com/matrix/shared/GRXQhM22sJ/7804WilliamsAve","http://matrixweb.trendmls.com/matrix/shared/vkJ1xq63sJ/6175RidgeAve"];
-const pics = ["./images/2019N8th.jpg","images/418S21st.jpg","images/323FortWash.jpg","images/7804Williams.jpg","images/6175Ridge.jpg"];
-const adds = ["2019 N 8th St", "418 S 21st St","323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"];
+
 
 var currentListings = new Listings(urls,adds,pics); //creates an instance of the listing class
 
@@ -148,8 +157,3 @@ currentListings.load(); //loads listings on opening the page
 
 $("#prev").click(function(){currentListings.prev()}); //fires the previous listing scroll 
 $("#next").click(function(){currentListings.next()}); //fires the next listing scroll 
-// $("#listing-image1").hover(enlarge);
-
-// function enlarge(){
-// 	$("#listing-image1 img").css("height","250px");
-// }
