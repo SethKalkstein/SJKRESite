@@ -14,51 +14,81 @@ header{
 	background-image: url(images/cityHallLove.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	height: 600px;
 }
 
 header li{
 	padding: 3px;
 	text-align: center;
-	font-color: white;
 }
 
-.nav-item a {
-	color: white;
-	text-shadow: .07em .07em black;
 
+.navigation-list {
+	display: flex;
+  	justify-content: center;
 }
-.nav-item a h3{
-	display: inline-block;
-	visibility: hidden;
+
+.js-nav-list {
+	display: flex;
+  	justify-content: space-between;	
 }
-.material-icons{
-	font-size: 30px;
+
+.nav-item {
+	padding: 2%;
+	font-size: 1.75em;
 }
 
 .jsHeaderSticky{
 	position: fixed;
-	top: 0;
+	/*top: -10px;*/
 	background-color: lightgrey;
 	opacity: .97;
-	padding: 0 auto;
 	margin: 0 auto;
 	/*font-size: 1em;*/
 /*	color: black;*/
 	border-bottom: 1px dotted grey;
 	width: 100%;
 }
+.nav-link {
+	color: white;
+/*	text-shadow: .07em .07em black;*/
+	/*font-size: 1.75em;*/
+	text-shadow: .2em .2em .2em black;
+}
 
-.jsStickyNavItem{
-	font-size: 20px;
+.jsStickyNavItem {
+	font-size: 10px;
 	color: black;
 	text-shadow: none;
+	display: flex;
+}
+
+.titleFloat{
+	display: block;
+	color: white;
+	text-shadow: .2em .2em .2em black;
+	font-size: 2em;
+	visibility: hidden;
 }
 
 .jsStickyH3{
 	color: black;
+	text-decoration: none;
 	font-size: 10px;
 	text-shadow: none;
 	display: inline;
+	padding: 0px 5px;
+	/*border: 1px solid black;*/
+	font-weight: normal;
+}
+
+.material-icons{
+	font-size: 30px;
+}
+
+
+.sjkre-floater{
+	padding: 4% 6%;
 }
 
 .text-section img{
@@ -339,26 +369,3 @@ li {
 }
 
 
-@media all and (min-width: 993px){
-	header{
-		height: 600px;
-	}
-	ul{
-		display: flex;
-  		justify-content: center;
-	}
-	ul li {
-		padding: 2%;
-		font-size: 1.75em;
-	}
-	.nav-item a{
-			text-shadow: .2em .2em .2em black;
-	}
-	.nav-item a h3{
-		display: block;
-		font-size: 2em;
-	}
-	#sjkre-floater{
-		padding: 4% 6%;
-	}
-}

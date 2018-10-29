@@ -49,7 +49,7 @@ function moveTitle(movingTitle = populateTitleMover()){ //function positions the
 	else {
 		iter = 2;
 	}
-	movingTitle[iter].element.style.visibility="visible"; //initiall set to hidden in css
+	movingTitle[iter].element.style.visibility="visible"; //initially set to hidden in css
 	movingTitle[iter].element.style.fontSize=(((count-(100*iter)+1)*.01)*1.9)+"em"; //makes the font "grow" during animation, uses count as a percent (in decimal form) of the desired outcome increasing by one percent each count
 	movingTitle[iter].element.style.left = (((count-(100*iter)+1)*.01)*movingTitle[iter].targetLeft())+"px"; //moves it to the right until centered. note: second and third interation h3[1] and h3[2] are corrected by multiplying the iter by 100 and subtracting from count (and adding 1 because 1 to 100 needed instead of 0 to 99) 
 	movingTitle[iter].element.style.top = (((count-(100*iter)+1)*.01)*movingTitle[iter].targetTop(iter))+"px"; //move it down the page until spaced evenly, uses same math as above
@@ -72,13 +72,20 @@ var scrollPlace = $("#about").offset();
 $(window).scroll(function(){
 	if($(document).scrollTop() > scrollPlace.top-(scrollPlace.top*.1)){
 		$("nav").addClass("jsHeaderSticky");
+		$(".nav-item a").removeClass("nav-link");
 		$(".nav-item a").addClass("jsStickyNavItem");
-		$("a h3").addClass("jsStickyH3");
+		$("#name-link h3").removeClass("titleFloat");
+		$("#name-link h3").addClass("jsStickyH3");
+		$("nav ul").removeClass("navigation-list");
+		$("nav ul").addClass("js-nav-list");
+		$("ul li").removeClass("sjkre-floater");
 	}
 	else{
 		$("nav").removeClass("jsHeaderSticky");	
 		$(".nav-item a").removeClass("jsStickyNavItem");
-		$("a h3").removeClass("jsStickyH3");
+		$(".nav-item a").addClass("nav-link");
+		$("#name-link h3").removeClass("jsStickyH3");
+		$("#name-link h3").addClass("titleFloat");
 	}
 		console.log(scrollPlace.top);
 });
