@@ -83,5 +83,73 @@ $(window).scroll(function(){
 		console.log(scrollPlace.top);
 });
 
+// photo slider below for featured listings
 
+class Listings{
+	constructor(url, address, picUrl){
+		this.url = url; //array of links to the mls listings
+		this.address = address;  //array of address of the houses
+		this.picUrl = picUrl;   //array of url of the houses photos
+		this.counter = 0; //will keep track of which one is being processed
+	}
+	prev(){
+		if(this.counter == this.address.length-1){ //it's on the last element of the array
+			this.counter = 0;  
+		}
+		else{
+			this.counter ++; //since we want the zero element to go to the left adding to the counter does this... counterintuitive, but if you look at the way items are displayed in sliderPositioner function it makes sense
+		}
+		this.load(); //load them up!
+	}
 
+	next(){
+		if(this.counter == 0){
+			this.counter = this.address.length-1;
+		}
+		else{
+			this.counter --; //in order to have the zero element move to the second position from the first, the new first position would have to be occupied by the last item of the array which is accomplished by decrimenting the counter
+		}
+		this.load();
+	}
+
+	load(){
+		if(this.counter==this.address.length-1){ //set the pictures and double check that the counter is not at the end of the array and compensate by returning the first (or first and second) element if it is
+			this.sliderPositioner(this.counter, 0, 1) //passes the positions of the array as arguments adjusted for being at the end of the array
+		}
+		else if(this.counter==this.address.length-2){ //same as above but in second to last position
+			this.sliderPositioner(this.counter, this.counter+1, 0 )	
+		}
+		else{ //otherwise we're not at the end of the array, all is well, carry on
+			this.sliderPositioner(this.counter, this.counter+1, this.counter+2 )
+		}
+	}
+
+	sliderPositioner(position1, position2, position3)
+	{
+			$("#listing-image1 img").attr("src",this.picUrl[position1]); //sets the actual positions in the html elements
+			$("#listing-image2 img").attr("src",this.picUrl[position2]);
+			$("#listing-image3 img").attr("src",this.picUrl[position3]);
+			$("#listing-heading1 h6").html(this.address[position1]);
+			$("#listing-heading2 h6").html(this.address[position2]);
+			$("#listing-heading3 h6").html(this.address[position3]);
+			$(".listing-link1").attr("href",this.url[position1]);
+			$(".listing-link2").attr("href",this.url[position2]);
+			$(".listing-link3").attr("href",this.url[position3]);
+	}
+}
+
+const urls = ["http://matrixweb.trendmls.com/matrix/shared/ZPQstKHXsJ/2019N8thSt", "http://matrixweb.trendmls.com/matrix/shared/g5DH3PQZsJ/418S21stSt","http://matrixweb.trendmls.com/matrix/shared/Xvb3L3Y1sJ/323FortWashingtonAve","http://matrixweb.trendmls.com/matrix/shared/GRXQhM22sJ/7804WilliamsAve","http://matrixweb.trendmls.com/matrix/shared/vkJ1xq63sJ/6175RidgeAve"];
+const pics = ["./images/2019N8th.jpg","images/418S21st.jpg","images/323FortWash.jpg","images/7804Williams.jpg","images/6175Ridge.jpg"];
+const adds = ["2019 N 8th St", "418 S 21st St","323 Fort Washington Ave", "7804 Williams Ave","6175 Ridge Ave"];
+
+var currentListings = new Listings(urls,adds,pics); //creates an instance of the listing class
+
+currentListings.load(); //loads listings on opening the page
+
+$("#prev").click(function(){currentListings.prev()}); //fires the previous listing scroll 
+$("#next").click(function(){currentListings.next()}); //fires the next listing scroll 
+// $("#listing-image1").hover(enlarge);
+
+// function enlarge(){
+// 	$("#listing-image1 img").css("height","250px");
+// }
